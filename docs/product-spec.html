@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <title>Equity Briefing — 产品说明书</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 18mm 16mm 20mm 16mm;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: "PingFang SC", "Hiragino Sans GB", "Songti SC", "Noto Sans SC", sans-serif;
+      color: #1c1814;
+      line-height: 1.65;
+      font-size: 10.5pt;
+      margin: 0;
+    }
+    h1 {
+      font-size: 22pt;
+      line-height: 1.25;
+      margin: 0 0 10pt;
+    }
+    h2 {
+      font-size: 13.5pt;
+      margin: 20pt 0 8pt;
+      padding-top: 10pt;
+      border-top: 1px solid #d9d0c3;
+      page-break-after: avoid;
+    }
+    h3 {
+      font-size: 11.5pt;
+      margin: 14pt 0 6pt;
+      page-break-after: avoid;
+    }
+    p, li { margin: 0 0 6pt; }
+    blockquote {
+      margin: 8pt 0 12pt;
+      padding: 8pt 12pt;
+      background: #f3eee6;
+      border-left: 3px solid #1e5f50;
+      color: #3d3832;
+    }
+    blockquote p { margin: 0; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 8pt 0 12pt;
+      font-size: 9pt;
+      page-break-inside: avoid;
+    }
+    th, td {
+      border: 1px solid #d9d0c3;
+      padding: 5pt 6pt;
+      vertical-align: top;
+      text-align: left;
+    }
+    th { background: #efe8dc; font-weight: 600; }
+    code, pre {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 8.5pt;
+    }
+    pre {
+      background: #f7f3ec;
+      padding: 10pt 12pt;
+      border: 1px solid #d9d0c3;
+      white-space: pre-wrap;
+      page-break-inside: avoid;
+    }
+    ul, ol { padding-left: 18pt; margin: 4pt 0 10pt; }
+    hr {
+      border: none;
+      border-top: 1px solid #d9d0c3;
+      margin: 12pt 0;
+    }
+    a { color: #1e5f50; text-decoration: none; }
+  </style>
+</head>
+<body>
+<h1>Equity Briefing — 产品说明书</h1>
+<blockquote>
+<p>版本：1.0（V1 已交付上传 Agent + Deck）<br>状态：V1 可用<br>定位：买方分析师助理 · 证据型财报简报 Agent<br>范围：研究工具，不构成投资建议</p>
+</blockquote>
+<hr>
+<h2>1. 一句话定义</h2>
+<p><strong>Equity Briefing</strong> 是一个面向专业投资者视角的 <strong>财报分析 Agent</strong>：用户上传财报文件（或输入股票代码），系统实时抽取实质信息，用表格、图表与可审计结论，输出一份 <strong>类似分析报告 PPT 的可视化简报</strong>。</p>
+<hr>
+<h2>2. 要解决的问题</h2>
+<table>
+<thead>
+<tr>
+<th>现状痛点</th>
+<th>产品如何解决</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>财报又长又密，人工划重点慢</td>
+<td>Agent 自动抽取关键科目、KPI、风险句，并标页码证据</td>
+</tr>
+<tr>
+<td>聊天式 AI 输出难演示、难分享</td>
+<td>固定结构的 deck 简报（一页一主题），可翻页、可导出</td>
+</tr>
+<tr>
+<td>模型容易编造数字</td>
+<td>数字只来自解析与校验层；叙事层禁止发明新数字</td>
+</tr>
+<tr>
+<td>“目标价很确定”不可信</td>
+<td>估值（若开启）只给保守区间 + 假设 + 失效条件，不作点预测神谕</td>
+</tr>
+<tr>
+<td>结论无法追溯</td>
+<td>每条 claim 绑定原文摘录 / 行情来源链接</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>3. 目标用户</h2>
+<ul>
+<li><strong>个人投资者 / 买方研究员</strong>：快速吃透一份 10-K、年报、业绩材料  </li>
+<li><strong>投研助理 / 实习生</strong>：生成可二次编辑的研究底稿  </li>
+<li><strong>非财务背景决策者</strong>：用可视化简报理解“公司这一期到底怎样”</li>
+</ul>
+<p>非目标用户：需要下单执行、量化回测交易、或合规投顾牌照服务的场景（本产品明确不做）。</p>
+<hr>
+<h2>4. 产品原则</h2>
+<ol>
+<li><strong>证据优先</strong>：没有来源的数字不出示；没有证据的结论不升级为“确定”。  </li>
+<li><strong>实质信息优先</strong>：少形容词，多科目、同比、现金流、风险原文。  </li>
+<li><strong>可视化优先</strong>：表 &gt; 图 &gt; 短结论；长段落降级为附录。  </li>
+<li><strong>一页一主题</strong>：像分析 PPT，不像信息仪表盘。  </li>
+<li><strong>保守表达</strong>：涉及估值时，展示保守锚定与假设，不承诺“未来最可能股价”。  </li>
+<li><strong>人机分工</strong>：工具负责解析与计算；模型负责提炼与叙事，且受 schema 约束。</li>
+</ol>
+<hr>
+<h2>5. 使用模式</h2>
+<h3>5.1 上传财报模式（主路径 · v1 核心）</h3>
+<p>用户上传财报文件 → Agent 解析 → 流式生成 PPT 式简报。</p>
+<p><strong>支持输入（分阶段）：</strong></p>
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>格式</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>v1</td>
+<td>PDF（可选文本层）</td>
+<td>10-K / 10-Q / 年报 / 业绩演示 PDF</td>
+</tr>
+<tr>
+<td>v1.1</td>
+<td>PDF + Excel/CSV</td>
+<td>用户自备三表或管理层 KPI 表</td>
+</tr>
+<tr>
+<td>v2</td>
+<td>扫描件图片</td>
+<td>OCR 后进入同一流水线</td>
+</tr>
+</tbody></table>
+<p><strong>用户操作流：</strong></p>
+<ol>
+<li>进入「上传财报」  </li>
+<li>拖入文件（可附可选：公司名 / ticker / 报告期提示）  </li>
+<li>查看解析进度（页数、表格识别、科目抽取）  </li>
+<li>简报按页流式出现（先封面与快照，再图表，再风险）  </li>
+<li>点击任意结论 → 打开证据抽屉（原文摘录 + 页码）  </li>
+<li>（可选）导出 PDF / 分享链接</li>
+</ol>
+<h3>5.2 Ticker 模式（辅路径 · 现有能力演进）</h3>
+<p>输入美股代码或公司名 → 拉取公开行情与财务 → 生成同一套 deck 结构的简报。<br>可与上传模式组合：<strong>上传定“质”，行情定“价”（可选页）</strong>。</p>
+<hr>
+<h2>6. 简报结构（PPT 式 Deck）</h2>
+<p>默认 <strong>8–12 页</strong>。每页包含：标题、一句结论、一个主视觉（表或图）、底部证据条。</p>
+<table>
+<thead>
+<tr>
+<th>页序</th>
+<th>页名</th>
+<th>主视觉</th>
+<th>内容要点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>01</td>
+<td>封面</td>
+<td>品牌 + 标的信息</td>
+<td>公司、报告类型、期间、分析时间、数据来源</td>
+</tr>
+<tr>
+<td>02</td>
+<td>执行摘要</td>
+<td>要点列表</td>
+<td>亮点 1–3、风险 1–3；各带页码引用</td>
+</tr>
+<tr>
+<td>03</td>
+<td>财务快照</td>
+<td>多期对比表</td>
+<td>收入、毛利、营业利润、净利、FCF、现金、债务</td>
+</tr>
+<tr>
+<td>04</td>
+<td>趋势</td>
+<td>折线 / 柱状图</td>
+<td>收入与利润趋势；利润率结构</td>
+</tr>
+<tr>
+<td>05</td>
+<td>盈利质量</td>
+<td>对照表 + 红旗</td>
+<td>经营现金流 vs 净利、应计、一次性、稀释/回购</td>
+</tr>
+<tr>
+<td>06</td>
+<td>分部与 KPI</td>
+<td>表格</td>
+<td>分部收入/利润；管理层强调 KPI 是否可验证</td>
+</tr>
+<tr>
+<td>07</td>
+<td>风险重点</td>
+<td>编号卡片</td>
+<td>从 Risk Factors / MD&amp;A 抽出可执行的 5 条</td>
+</tr>
+<tr>
+<td>08</td>
+<td>叙事 vs 数字</td>
+<td>双栏对照</td>
+<td>管理层说法 ↔ 报表是否支持</td>
+</tr>
+<tr>
+<td>09</td>
+<td>（可选）估值</td>
+<td>区间图 + 假设表</td>
+<td>保守合理价值区间、现价位置、失效条件</td>
+</tr>
+<tr>
+<td>10</td>
+<td>附录证据</td>
+<td>摘录列表</td>
+<td>原文片段、页码、访问渠道</td>
+</tr>
+</tbody></table>
+<p><strong>文案规范：</strong></p>
+<ul>
+<li>结论句使用条件性措辞（“在…假设下”“披露显示…”）  </li>
+<li>禁止无条件“强烈买入 / 目标价必达”  </li>
+<li>中英双语可切换（与现有产品一致）</li>
+</ul>
+<hr>
+<h2>7. Agent 能力说明</h2>
+<h3>7.1 流水线</h3>
+<pre><code>上传/拉取 → 解析分块 → 结构化抽取 → 数字校验 → 可视化装配 → 叙事生成 → Deck 输出
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>模块</th>
+<th>职责</th>
+<th>实现约束</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Parser</td>
+<td>提取文本、表格、页码；扫描件走 OCR</td>
+<td>确定性工具优先</td>
+</tr>
+<tr>
+<td>Extractor</td>
+<td>按 schema 输出科目、期间、KPI、风险句</td>
+<td>JSON Schema 约束；缺字段显式标 <code>missing</code></td>
+</tr>
+<tr>
+<td>Validator</td>
+<td>勾稽检查、单位统一、同比重算</td>
+<td>校验失败则降级展示并提示</td>
+</tr>
+<tr>
+<td>Visualizer</td>
+<td>生成表/图所需结构化数据</td>
+<td>前端渲染；禁止模型直接画“假图数据”</td>
+</tr>
+<tr>
+<td>Narrator</td>
+<td>生成标题、要点、失效条件</td>
+<td>不得引入未在 Extract 中出现的数字</td>
+</tr>
+<tr>
+<td>Editor</td>
+<td>证据绑定、拒收无 <code>evidenceIds</code> 的 claim</td>
+<td>与现有 Editor 纪律一致</td>
+</tr>
+</tbody></table>
+<h3>7.2 “划重点”如何定义</h3>
+<p>不是高亮全文，而是产出：</p>
+<ul>
+<li><strong>可点击的 Claim</strong>（立场：支持 / 谨慎 / 中性 / 条件性低估·合理·高估）  </li>
+<li><strong>绑定 Evidence</strong>（文件页码、摘录、或 Yahoo/EDGAR 链接）  </li>
+<li><strong>假设清单</strong>（若涉及预测或估值）</li>
+</ul>
+<h3>7.3 估值页（可选 · 保守原则）</h3>
+<p>当且仅当识别到可靠 ticker 且财务数据充分时展示：</p>
+<ul>
+<li><strong>保守合理价值区间</strong>（多模型偏低分位 + 安全边际）  </li>
+<li><strong>现价相对区间位置</strong> → 条件性低估 / 大致合理 / 条件性高估  </li>
+<li><strong>失效条件</strong>（如 FCF 连续为负、杠杆超阈值、关键假设被证伪）  </li>
+<li>明确标注：<strong>保守锚定 ≠ 未来最可能成交价</strong></li>
+</ul>
+<p>不做：用 LLM 直接报目标价；用单一分析师目标价冒充内在价值。</p>
+<hr>
+<h2>8. 界面与交互</h2>
+<h3>8.1 信息架构</h3>
+<ul>
+<li><strong>首页</strong>：双入口 —「上传财报」/「输入代码」  </li>
+<li><strong>生成中</strong>：进度条 + 已完成页缩略  </li>
+<li><strong>简报台</strong>：横向/纵向翻页（PPT 感）；侧栏页目录  </li>
+<li><strong>证据抽屉</strong>：统一打开原文/链接  </li>
+<li><strong>设置</strong>：语言（中/EN）、是否启用估值页、缓存刷新</li>
+</ul>
+<h3>8.2 可视化组件清单</h3>
+<ul>
+<li>多期财务对比表  </li>
+<li>收入 / 盈利 / FCF 趋势图  </li>
+<li>利润率对比柱图  </li>
+<li>52 周价格位置（Ticker 模式）  </li>
+<li>情景或保守价值区间带状图（估值页）  </li>
+<li>风险等级条（L1–L5）  </li>
+<li>Peer P/E 对照（有同行数据时）</li>
+</ul>
+<h3>8.3 实时体验</h3>
+<ul>
+<li>流式 NDJSON / SSE：按页推送  </li>
+<li>单页失败不阻断整份简报（该页显示“数据不足”）  </li>
+<li>缓存：同一文件指纹 / 同一 ticker 24h 可复用（可强制刷新）</li>
+</ul>
+<hr>
+<h2>9. 数据与合规</h2>
+<h3>9.1 数据来源</h3>
+<table>
+<thead>
+<tr>
+<th>来源</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>用户上传文件</td>
+<td>主分析对象</td>
+</tr>
+<tr>
+<td>Yahoo Finance</td>
+<td>实时行情、公开财务报表（Ticker 模式）</td>
+</tr>
+<tr>
+<td>SEC EDGAR</td>
+<td>CIK、披露链接、（后续）XBRL/摘录</td>
+</tr>
+<tr>
+<td>FMP / Finnhub 等（可选 Key）</td>
+<td>更稳的历史财务、同行</td>
+</tr>
+</tbody></table>
+<h3>9.2 隐私与安全</h3>
+<ul>
+<li>上传文件仅用于生成当次/缓存期内的研究简报  </li>
+<li>不将用户文件用于模型训练宣传口径（产品承诺需在部署时落实）  </li>
+<li>密钥仅存服务端环境变量  </li>
+<li>对外分享链接默认脱敏或需显式授权</li>
+</ul>
+<h3>9.3 免责声明（产品内固定展示）</h3>
+<blockquote>
+<p>本产品为研究原型工具，输出不构成投资建议，亦不构成买卖要约。请对照原始披露与自建模型核对所有数字后再做决策。</p>
+</blockquote>
+<hr>
+<h2>10. 成功标准（验收）</h2>
+<p><strong>体验</strong></p>
+<ul>
+<li><input disabled="" type="checkbox"> 一份标准文本层 PDF（≤50 页）在可接受时间内出齐核心页（封面→风险）  </li>
+<li><input disabled="" type="checkbox"> 用户无需读完整份 PDF，即可从 deck 理解本期实质变化  </li>
+<li><input disabled="" type="checkbox"> 任意关键数字可点开追溯到摘录或外部来源</li>
+</ul>
+<p><strong>质量</strong></p>
+<ul>
+<li><input disabled="" type="checkbox"> 校验层能拦下明显加减/单位错误  </li>
+<li><input disabled="" type="checkbox"> Narrator 不出现 Extract 中不存在的金额  </li>
+<li><input disabled="" type="checkbox"> 数据不足时拒答点位，而非编造估值</li>
+</ul>
+<p><strong>形态</strong></p>
+<ul>
+<li><input disabled="" type="checkbox"> 简报可按页浏览，观感接近分析报告 PPT  </li>
+<li><input disabled="" type="checkbox"> 支持中/EN  </li>
+<li><input disabled="" type="checkbox"> 研究免责声明始终可见</li>
+</ul>
+<hr>
+<h2>11. 版本路线图</h2>
+<table>
+<thead>
+<tr>
+<th>版本</th>
+<th>主题</th>
+<th>交付</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>v0（现状）</strong></td>
+<td>Ticker 研究简报</td>
+<td>长滚动报告：定量、新闻、护城河、PE 情景、风险、条件建议</td>
+</tr>
+<tr>
+<td><strong>v1（已交付）</strong></td>
+<td>上传 Agent + Deck UI</td>
+<td>PDF/TXT 上传、结构化抽取、表图页、证据绑定、流式翻页简报</td>
+</tr>
+<tr>
+<td><strong>v1.1</strong></td>
+<td>质量与导出</td>
+<td>Excel 输入、盈利质量页增强、导出 PDF、假设表</td>
+</tr>
+<tr>
+<td><strong>v2</strong></td>
+<td>估值增强 + OCR</td>
+<td>保守内在价值页、扫描件 OCR、同行自动发现、可选 LLM 叙事</td>
+</tr>
+<tr>
+<td><strong>v3</strong></td>
+<td>信任与协作</td>
+<td>历史信号回测展示、分享权限、多份报告对比</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>12. 明确不做（Non-goals）</h2>
+<ul>
+<li>自动下单 / 模拟盘交易  </li>
+<li>保证收益或“必涨”点位  </li>
+<li>无证据的荐股话术  </li>
+<li>用单一聊天窗口替代结构化简报作为唯一交付物  </li>
+<li>对所有行业强行输出同一套 DCF 点预测</li>
+</ul>
+<hr>
+<h2>13. 与现有技术资产的关系</h2>
+<p>当前仓库已具备：Next.js App Router、流式报告 API、证据/Claim 模型、图表与双语 UI、Yahoo + EDGAR 采集、确定性分析管道。</p>
+<p>产品演进策略：<strong>保留证据纪律与分析模块，新增「上传解析」与「Deck 呈现层」</strong>，将现有长页报告重构为可翻页简报，而不是推倒重来。</p>
+<hr>
+<h2>14. 术语表</h2>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Deck</td>
+<td>PPT 式多页简报</td>
+</tr>
+<tr>
+<td>Claim</td>
+<td>带立场与置信度的分析结论句</td>
+</tr>
+<tr>
+<td>Evidence</td>
+<td>可访问的数据或原文证据单元</td>
+</tr>
+<tr>
+<td>Conservative Anchor</td>
+<td>保守合理价值锚定（含安全边际）</td>
+</tr>
+<tr>
+<td>MOS</td>
+<td>Margin of Safety，安全边际</td>
+</tr>
+<tr>
+<td>Extract Schema</td>
+<td>强制结构化的财报抽取字段定义</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>15. 文档维护</h2>
+<ul>
+<li>产品变更以本说明书为准，重大决策同步更新版本号与路线图。  </li>
+<li>实现细节见代码与后续技术设计文档；本文件聚焦 <strong>做什么 / 为谁做 / 不做什么</strong>。</li>
+</ul>
+
+</body>
+</html>

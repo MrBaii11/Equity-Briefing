@@ -1,0 +1,173 @@
+@import "tailwindcss";
+
+:root {
+  --ink: #1c1814;
+  --body: #3d3832;
+  --muted: #7a7268;
+  --surface: #f7f3ec;
+  --wash: #efe8dc;
+  --line: #d9d0c3;
+  --accent: #1e5f50;
+  --accent-soft: #d9ebe4;
+  --warn: #a14a2e;
+  --warn-soft: #f3e0d8;
+  --background: #f3eee6;
+  --foreground: var(--ink);
+  --font-display: var(--font-newsreader);
+  --font-sans: var(--font-figtree);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-figtree);
+  --font-display: var(--font-newsreader);
+}
+
+body {
+  background:
+    radial-gradient(1200px 600px at 10% -10%, rgba(30, 95, 80, 0.08), transparent 55%),
+    radial-gradient(900px 500px at 100% 0%, rgba(161, 74, 46, 0.06), transparent 50%),
+    linear-gradient(180deg, #f7f3ec 0%, #efe8dc 48%, #f3eee6 100%);
+  color: var(--foreground);
+  font-family: var(--font-figtree), system-ui, sans-serif;
+  min-height: 100%;
+}
+
+.hero-grid {
+  background-image:
+    linear-gradient(rgba(28, 24, 20, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(28, 24, 20, 0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: linear-gradient(180deg, black 20%, transparent 85%);
+}
+
+.input-search {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+  border-radius: 0.5rem;
+  padding: 0.85rem 1rem;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input-search:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(30, 95, 80, 0.15);
+}
+
+.btn-primary {
+  border-radius: 0.5rem;
+  background: var(--ink);
+  color: #f7f3ec;
+  padding: 0.85rem 1.25rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: transform 0.15s ease, background 0.15s ease, opacity 0.15s ease;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: #2a241e;
+  transform: translateY(-1px);
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  border-radius: 0.5rem;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+  padding: 0.7rem 1rem;
+  font-size: 0.85rem;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  border-color: var(--accent);
+  background: var(--wash);
+}
+
+.evidence-chip {
+  border-radius: 0.35rem;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--accent);
+  padding: 0.2rem 0.5rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.evidence-chip:hover {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateX(16px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(18px, -12px);
+  }
+}
+
+@keyframes pulse-soft {
+  0%,
+  100% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.55s ease both;
+}
+
+.animate-slide-in {
+  animation: slide-in 0.28s ease both;
+}
+
+.animate-drift {
+  animation: drift 14s ease-in-out infinite;
+}
+
+.animate-drift-delayed {
+  animation: drift 18s ease-in-out infinite reverse;
+}
+
+.animate-pulse-soft {
+  animation: pulse-soft 1.6s ease-in-out infinite;
+}
