@@ -1,8 +1,18 @@
 import { promises as fs } from "fs";
+import os from "os";
 import path from "path";
 import type { CompanyBundle, EquityBriefing } from "./types";
 
-const CACHE_DIR = path.join(process.cwd(), ".cache");
+// Serverless platforms (Vercel, AWS Lambda) mount the app directory read-only;
+// only the OS temp dir (/tmp) is writable there. Locally keep using ./.cache.
+const IS_SERVERLESS = Boolean(
+  process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME
+);
+const CACHE_DIR =
+  process.env.CACHE_DIR ||
+  (IS_SERVERLESS
+    ? path.join(os.tmpdir(), "equity-briefing-cache")
+    : path.join(process.cwd(), ".cache"));
 const TTL_MS = 24 * 60 * 60 * 1000;
 
 type CacheEntry<T> = {
@@ -31,9 +41,14 @@ async function readCache<T>(key: string): Promise<T | null> {
 }
 
 async function writeCache<T>(key: string, data: T): Promise<void> {
-  await ensureDir();
-  const entry: CacheEntry<T> = { savedAt: Date.now(), data };
-  await fs.writeFile(fileFor(key), JSON.stringify(entry), "utf8");
+  try {
+    await ensureDir();
+    const entry: CacheEntry<T> = { savedAt: Date.now(), data };
+    await fs.writeFile(fileFor(key), JSON.stringify(entry), "utf8");
+  } catch (err) {
+    // Caching is best-effort; never fail the request because of it.
+    console.warn(`[cache] failed to write ${key}:`, err);
+  }
 }
 
 const CACHE_VER = "v3";
